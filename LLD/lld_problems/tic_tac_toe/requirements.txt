@@ -1,0 +1,12 @@
+Design Tic-Tac-Toe
+
+Requirement
+No specific Requirement , a standard tic tac toe game is expected
+
+Objects and there functionalities 
+
+1. Piece - X , O , $ , @ which can be a enum
+2. Player - has a Piece
+3. Board  - 2d slice of pieces enum ,  validRowAndColumn , IsEmpty()
+          - 
+4. Game  - has a board  , GetWinner() -> "Player Number" , "No winner yet" , "Tie"

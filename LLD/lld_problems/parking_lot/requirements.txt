@@ -1,0 +1,26 @@
+Design A parking lot with below requirements
+
+
+Rough Diagram
+
+Entry Gate -> Get the ticket ->  Parking Spot -> Exit Gate (Pay the parking bill)
+
+
+Requirements
+
+1. only 1 entry and 1 exit
+2. parking should be on nearbuy basis of entry gate
+3. two types of vehicle supported 2 wheeler and 4 wheeler
+4. parking rate will be for 2 wheeler hourly basis and 4 wheeler minute basis
+
+
+Objects and there functionality
+
+1. Entry Gate  -  find parking spot , ticket booking
+2. Ticket - id , include vehicle , entry time
+3. Parking Spot - holds list of parking spot , vehicle , find parking sport , add parking spot remove parking spot
+4. Vehicle - {id , vechile_type , vehicle_no }
+5. Exit Gate  - free_parking_spot , calculate_fare , fare_payment
+
+
+

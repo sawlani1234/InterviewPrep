@@ -1,0 +1,32 @@
+Car Rental LLD Design
+
+
+Rough Flow
+
+Search User -> Car App - List of Stores and Car APp and each store on click will have vehicles
+
+after selecting vechile -> he will resverve th vechile -> Bill 
+
+
+----------------------------------
+Requirements
+
+1. should be  scalable to multiple vehicle types
+
+
+------------------------------------
+
+Objects and there funcitonalities
+1. User Object - **
+2. Location Object - **
+3. Stores  - **
+4. Vehicles - **
+5. Resverve
+6. Bill 
+7. Payment
+
+
+
+
+
+------------------------

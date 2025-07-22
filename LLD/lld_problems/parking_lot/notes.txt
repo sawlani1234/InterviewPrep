@@ -1,0 +1,9 @@
+1. Make Parking Space an Interface - done 
+2. Add Parking Space struct  - done 
+3. Make Parking Base Manager struct  - done 
+4. Add common functionalities there  - done 
+5. Do error handling
+6. Divide the files into packages
+
+
+Finish : TADA {Excepted is 1 hour}

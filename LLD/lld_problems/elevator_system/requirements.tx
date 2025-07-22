@@ -1,0 +1,51 @@
+Elevator system
+
+Rough flow 
+Building having x floors buttons in left for up and down external 
+lets say n lifts , press external button wait for lift 
+pick the floor and get dropped at that floor 
+
+Requriements
+
+1. How many lift -?  n 
+
+
+Object
+
+Building
+
+
+floor 
+
+External button on each floor (up/down)
+
+          -> display -> {current floor , direction of lift , status {idle/moving}}
+Elevator --> Internal button 
+          -> Door 
+
+
+ElevatorController - for controlling an Elevator
+
+Internlal button 
+InternalButton dispatcher for dispatching any actions on internal button 
+
+External Button Dispatcher for dispatching any actions on external button 
+
+
+
+Door
+
+---------
+
+Strategies
+
+1. ElevatorMovementStrategy - where elevator should move 
+2. ElevatorChooseStrategy - which elevator to choose
+
+
+-------------
+
+How lift will be dispatched ?  Lift dispatched algo strateg
+1. even odd
+2. fixed floor
+3. Min sweep time
