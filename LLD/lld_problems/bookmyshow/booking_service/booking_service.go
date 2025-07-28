@@ -54,7 +54,7 @@ func (b *BookingService) ProcessBooking() {
 
 	movies := b.movieController.MovieCityMap[cities[cityID]]
 
-	fmt.Println("\nSelect from  Available movies\n")
+	fmt.Println("\nSelect from  Available movies")
 	
 	for i:=0;i<len(movies);i++ {
 		fmt.Println(i, " : " ,movies[i].Name, " : ",movies[i].Genre)
