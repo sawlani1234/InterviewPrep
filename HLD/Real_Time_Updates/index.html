@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>SSE Test</title>
+</head>
+<body>
+    <h1>Server Events</h1>
+    <ul id="messages"></ul>
+
+    <script>
+        const messages = document.getElementById('messages');
+        const eventSource = new EventSource('/events');
+
+        // This function will run for every message received
+        eventSource.onmessage = (event) => {
+            const newLi = document.createElement("li");
+            newLi.textContent = "message: " + event.data;
+            messages.appendChild(newLi);
+        };
+
+        console.log("Connecting to SSE stream...");
+    </script>
+</body>
+</html>
