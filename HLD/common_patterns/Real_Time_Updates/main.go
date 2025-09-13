@@ -62,8 +62,8 @@ func redisPubSub() {
 }
 
 func main() {
-	// startSSE()
+	 startSSE()
 	// startWS()
-	redisPubSub()
+	//redisPubSub()
 }
 
