@@ -1,7 +1,7 @@
 package main
 
 import (
-	"fmt"
+	//"fmt"
 	"solid_design/dsa/graph"
 	"solid_design/dsa/sorting"
 	// "solid_design/dsa/strings"
@@ -192,6 +192,13 @@ func (h *Heap) Pop() int {
 
 }
 
+/**
+		 0
+		/ \
+        1- 2
+       /. /
+       3/
+*/
 
 
 
@@ -200,20 +207,36 @@ func (h *Heap) Pop() int {
 func main() {
 	// graph.Djisktra(graph.GetWeightedGraph(getWeightedEdges(),6),6)
     // trieTest()
+
+	// graph.BellmanFord([][]int{
+	// 	{0,1,6},
+	// 	{0,2,5},
+	// 	{1,3,1},
+	// 	{2,1,-2},
+	// 	{3,2,4},
+	// },4)
+
+	graph.FloydWarshall([][]int{
+		{0,1,3},
+		{0,2,5},
+		{1,2,1},
+		{1,3,6},
+		{2,3,2},
+	},4)
     
-	arr := []int{10,9,8,7,6,5,4,3,2,1}
+	// arr := []int{10,9,8,7,6,5,4,3,2,1}
 
-	h := NewHeap()
+	// h := NewHeap()
 
-	for _,val := range arr {
-		h.Push(val)
-	}
+	// for _,val := range arr {
+	// 	h.Push(val)
+	// }
 	
-	fmt.Println(h.arr)
-	fmt.Println("-------")
-	for i:=0;i<len(arr);i++ {
-		fmt.Println(h.Pop())
-	}
+	// fmt.Println(h.arr)
+	// fmt.Println("-------")
+	// for i:=0;i<len(arr);i++ {
+	// 	fmt.Println(h.Pop())
+	// }
 
 }
 
