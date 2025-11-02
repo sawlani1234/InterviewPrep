@@ -21,6 +21,20 @@ type EdgeWeighted struct {
 	weight int
 }
 
+func (e EdgeWeighted) GetWeight() int {
+	return e.weight
+}
+
+func (e EdgeWeighted) GetX() int {
+	return e.x
+}
+
+
+func (e EdgeWeighted) GetY() int {
+	return e.y
+}
+
+
 func NewEdgeWeighted(x,y,weight int) EdgeWeighted {
 	return EdgeWeighted{x:x,y:y,weight: weight}
 }
