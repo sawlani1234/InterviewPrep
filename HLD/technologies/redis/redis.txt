@@ -1,0 +1,13 @@
+1. single leader replication  only
+2. eventually consistency guarantes with HA replica
+3. you can choose to have replica or only single node
+4. for more druability add WAIT 
+5. lua script for exeucuting multiple statmeents atomically
+   -- redis.Script(script,args....)
+6. single instance lock 
+  -- but need have different values so to avoid accidental lock
+7. add redlock for locking for distributed
+  -- lock with quorum  , still not full proof though
+
+
+
