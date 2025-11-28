@@ -2,8 +2,12 @@ package main
 
 import (
 	//"fmt"
+	"container/heap"
+	"fmt"
 	"solid_design/dsa/graph"
 	"solid_design/dsa/sorting"
+	"solid_design/dsa/tree"
+	"sort"
 	// "solid_design/dsa/strings"
 	//"solid_design/dsa/tree"
 )
@@ -193,18 +197,80 @@ func (h *Heap) Pop() int {
 }
 
 /**
-		 0
-		/ \
-        1- 2
-       /. /
-       3/
-*/
+		1
+	    /\	
+	   2  7
+          /\ 
+	  3 -6 -8
+      /\ 
+     4. 5
 
 
 
+		   */        
+
+
+func getWeightedGraphExample() [][]graph.EdgeWeighted {
+	return graph.GetWeightedGraph([]graph.EdgeWeighted{
+		graph.NewEdgeWeighted(7,8,10),
+		graph.NewEdgeWeighted(3,5,1),
+		graph.NewEdgeWeighted(6,7,2),
+		graph.NewEdgeWeighted(1,2,4),
+		graph.NewEdgeWeighted(3,6,4),
+		graph.NewEdgeWeighted(1,7,6),
+		graph.NewEdgeWeighted(3,4,7),
+		graph.NewEdgeWeighted(6,8,1),
+		},8)
+}
+
+
+type TrieNode struct {
+	child [26]*TrieNode
+	isEnd bool
+}
+
+func NewTrieNode() *TrieNode {
+	 var child [26]*TrieNode
+	 
+	 return &TrieNode{child:child,isEnd:false}
+}
+
+
+
+func add(root *TrieNode,word string) {
+	
+	temp := root
+	for i:=0;i<len(word);i++ {
+		if temp.child[word[i]-'a'] == nil {
+			temp.child[word[i]-'a'] = NewTrieNode()
+		}
+		temp = temp.child[word[i]-'a']
+	}
+
+	temp.isEnd = true
+}	
+
+func search(root *TrieNode,word string) bool {
+	temp := root
+	
+	for i:=0;i<len(word) && temp != nil;i++ {
+		temp = temp.child[word[i]-'a']
+	}
+	return temp != nil && temp.isEnd
+}
 
 
 func main() {
+
+	tree.Tree = make([]int,40)
+
+	nums := []int{1,2,3,5,6}
+
+	tree.Build(nums,0,4,1)
+
+	fmt.Println(tree.Query(0,4,2,1,1))
+
+    
 	// graph.Djisktra(graph.GetWeightedGraph(getWeightedEdges(),6),6)
     // trieTest()
 
@@ -216,13 +282,13 @@ func main() {
 	// 	{3,2,4},
 	// },4)
 
-	graph.FloydWarshall([][]int{
-		{0,1,3},
-		{0,2,5},
-		{1,2,1},
-		{1,3,6},
-		{2,3,2},
-	},4)
+	// graph.FloydWarshall([][]int{
+	// 	{0,1,3},
+	// 	{0,2,5},
+	// 	{1,2,1},
+	// 	{1,3,6},
+	// 	{2,3,2},
+	// },4)
     
 	// arr := []int{10,9,8,7,6,5,4,3,2,1}
 
@@ -238,25 +304,164 @@ func main() {
 	// 	fmt.Println(h.Pop())
 	// }
 
+	
+	//fmt.Println(Prims(getWeightedGraphExample(),8))
+	// Kruskal([]graph.EdgeWeighted{
+	// 	graph.NewEdgeWeighted(7,8,10),
+	// 	graph.NewEdgeWeighted(3,5,1),
+	// 	graph.NewEdgeWeighted(6,7,2),
+	// 	graph.NewEdgeWeighted(1,2,4),
+	// 	graph.NewEdgeWeighted(3,6,4),
+	// 	graph.NewEdgeWeighted(1,7,6),
+	// 	graph.NewEdgeWeighted(3,4,7),
+	// 	graph.NewEdgeWeighted(6,8,1)},8)
+	// root := NewTrieNode()
+	// add(root,"shubham")
+	// add(root,"swarnim")
+	// add(root,"shubhs")
+	// add(root,"shubhs")
+	// fmt.Println("sh",search(root,"sh"))
+	// fmt.Println("shubhs",search(root,"shubhs"))
+	// fmt.Println("swarnim",search(root,"swarnim"))
+	// fmt.Println("swar",search(root,"swar"))
+	// fmt.Println("shubham",search(root,"shubham"))
+
+}
+
+type IntHeap []Pair 
+
+type Pair struct {
+	x int 
+	w int 
 }
 
 
-func recur(idx ,k, A int) [][]int {
-    
-    if k == 0 {
-        return make([][]int,0)
-    }
-    ans := make([][]int,0)
 
-    for i:=idx;i<=A;i++ {
-        temp := recur(idx+1,k-1,A)
-        for j:=0;j<len(temp);j++ {
-			ans = append(ans, append([]int{idx}, temp[j]...))
-        }
-    }
-    
-    return ans
+func NewPair(x,w int) Pair {
+	return Pair{x,w}
 }
+
+func(h *IntHeap) Push(x interface{}){
+	(*h) = append((*h), x.(Pair))
+}
+
+func(h *IntHeap) Pop() (x interface{}) {
+	x , (*h) = (*h)[h.Len()-1] , (*h)[:h.Len()-1]
+
+	return x
+}
+
+func(h *IntHeap) Len() int {
+	return len(*h)
+}
+
+func(h *IntHeap) Swap(i,j int) {
+	(*h)[i],(*h)[j] = (*h)[j],(*h)[i]
+}
+
+func (h *IntHeap) Less(i,j int) bool {
+	return (*h)[i].w < (*h)[j].w
+}
+
+
+
+func Prims(graph [][]graph.EdgeWeighted,n int) int {
+
+	vis := make([]bool,n+1)
+
+	q := &IntHeap{}
+	heap.Init(q)
+	heap.Push(q,NewPair(1,0))
+	ans := 0
+
+	for ;q.Len() > 0; {
+
+		p := heap.Pop(q).(Pair)
+		parent,weight := p.x,p.w
+		
+
+		if !vis[parent] {
+			vis[parent] = true 
+			ans += weight
+
+			for k:=0;k<len(graph[parent]);k++ {
+				child := graph[parent][k].GetY()
+				w := graph[parent][k].GetWeight()
+
+				if !vis[child] {
+					heap.Push(q,NewPair(child,w))
+				}
+			}
+		}
+	}
+
+	return ans 
+
+}
+
+var siz []int 
+var root []int
+
+func getRoot(a int) int {
+
+	for ;a!=root[a]; {
+		root[a] = root[root[a]]
+		a = root[a]
+	}
+
+	return a
+}
+
+func union(a,b int) {
+
+	rootA := getRoot(a)
+	rootB := getRoot(b)
+	
+	if siz[rootA] >= siz[rootB] {
+		siz[rootA] += siz[rootB]
+		root[rootB] = rootA
+	} else {
+		siz[rootB] += siz[rootA]
+		root[rootA] = root[rootB]
+	}
+}
+
+func find(a,b int) bool {
+	return getRoot(a) != getRoot(b)
+}
+
+func Kruskal(graph []graph.EdgeWeighted,n int) {
+
+	ans := 0
+   
+	siz = make([]int, n+1)
+	root = make([]int, n+1)
+
+
+	for i:=0;i<=n;i++ {
+		siz[i] = 1
+		root[i] = i 
+	}
+
+	sort.Slice(graph,func(i,j int) bool {
+		return graph[i].GetWeight() < graph[j].GetWeight()		
+	})
+
+	for i:=0;i<len(graph);i++ {
+		u,v,w := graph[i].GetX(),graph[i].GetY(),graph[i].GetWeight()
+
+	    if find(u,v) {
+			union(u,v)
+			ans+=w
+		}
+
+	}
+
+	fmt.Println(ans)
+}
+
+
+
  
 func combine(A int , B int )  ([][]int) {
     // q := list.New()
