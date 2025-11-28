@@ -1,0 +1,20 @@
+Rate limiter critical point notes 
+
+1. lua script in redis for multi statement txns
+2. for latency < 10 ms , optimal connection pooling -> pool_size , timeout , idle connection can be get through testing
+3. zookeeper -  store bucket count in local and keep a watch of config stored in zookeeper to update this count 
+4. System fail open/ fail close - based on if system can tolarete the abuse
+5. for redis data strcuture ,as we need to store last_time_stamp and token both against a key 
+   we can use HSET which is basically a dictionary of values for a key 
+   eg to set key .. HSET user:shubham token 100 last_time_stamp 10000
+      to fetch key ..(multiple fields) HMGET user:shubham token last_time_stamp ,, use HGET for single key
+6. Different rate limiting algos 
+   a. Token bucket -> allows burst, filling of token at a x rate 
+   b. fixed window counter - > fixed no of request in a windoe
+   c. Sliding window log -> timestamp in redis sorted list , ZADD
+   d. Sliding window counter -> maintain counter for each window count_1:01:00  , count_1:02:00  , fixes burst of near end of fixed window counter 
+   e. Leaky bucket - > request are filled up in a quque and processed at a constant rate in bucket (to smooth out the traffic)
+
+
+   
+

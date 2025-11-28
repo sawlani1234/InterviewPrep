@@ -1,0 +1,68 @@
+So I went through kafka topic , majorily I know things abt kafka based on HI 
+
+
+
+1. Kafka is basically  a queue system can be used as queue or stream both (if u do not ack the message)
+
+2. Kafka has a broker cluster which has multiple brokers
+
+3. Data to kafka are produced by producers and consumed by consumers 
+
+4. data is logically segreegated by topic , 
+
+5. and topic is phsyically segregated by partition , 
+
+6. we have a concept called consumer group ,where group of consumers can consume  from parition of the topic
+
+7. Each partition is only consumed by one consuemr in the consumer group
+
+8. kafka has leader follower prinicpal for parition . where partition asycnhonornously get the replicated data to enhance durability
+
+9. Kafka controller in the cluster manages metadata of topic to partition map and which partition is connected to which consumer in consuemr group , along with commited offsets of each partition 
+
+
+
+Scalability 
+
+1. Kafka can scale by adding more partitions whcih will increase parallelism by adding more consumers
+
+2. also we can always increase no of broekrs in the cluster to add more space and hacne more pratiion , enabling more consumers and more parlalllismg
+
+3. Choosing the right key is very improtatnt for efficient distribution of keys
+
+
+
+
+
+Hot keys
+
+
+
+1. ways to handle hot keys , -> is use compunded key or have some attributes like timestamp associated with key  or let kfka handle the distribution, automatically
+
+2. have back pressure to slow down the producer itself 
+
+
+
+
+
+Durability 
+
+1. its provided by replication common replicatio = 3 , from producer can use sync = all , for maximum durability etc
+
+
+
+Retries 
+
+1. can retry producer through exp back off retries fro transient failures
+
+2. can retry consuemr through delayed queueu backed by DLQ
+
+3. Retention policies - default 7 days can increase . 
+    Kafka writes message to SSD  but first message is writtent to RAM and then flushed to disk for added durability
+
+
+Coordinator
+
+1. Kafka  Cordinaor , - leader election , checks for broker health  
+2. Group Controller - a broekr which manages , the partition assignement to consumers in consumer group , offset commit
