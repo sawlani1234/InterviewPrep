@@ -1,0 +1,4 @@
+1. Use redis pub sub for finding chat server 
+2. Use l4 load balancer  for WS connection
+3. Use participant and chat concept rather than group/individual 
+4. Use inbox pattern for message durability
