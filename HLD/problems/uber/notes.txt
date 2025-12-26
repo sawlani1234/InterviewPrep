@@ -1,0 +1,8 @@
+Notes about design missing part 
+
+1. Use state machine like temporal to have matching  , it will make system simpler to move states rather than having web sockets 
+for all 
+2. as it is adaptive location updates its fine to have httt api call 
+3. we also have notitfication service to send notification to drivers through APN , FCM (they are not classical SSE)
+4. we have scaling through geohashing  
+5. one driver can have only request at a time 

@@ -1,0 +1,22 @@
+To consider 
+1. SSE for updates from server to client for changes in server
+2. Use Gzip for compressing the size before upload
+3. To sync status of chunks use Etag and also use list upload part for double checking
+4. presigned url 
+    a. contains cyrptographic signature
+    b. expiry 
+    c. content-type (to restrict)
+    d. content-length (min,max bu)
+4. CDN is used to cache the files 
+    a. use cache control header  to expire files in CDN 
+    b. CDN automatically use LRU eviction
+    c. for security CDN also provides signed url similar to S3 , singed through some private key stored at server
+    d. when we download file we search in CDN and on during cache miss CDN downloads the file from server
+5. for multi device sync we can have event log (user , file ,seq no) and sync only those which are greater than seq no
+    a. web socket update 
+    b. client api call to get update
+    c. client downloads
+
+
+6. Server side reconcolliation for missing uplaods
+
